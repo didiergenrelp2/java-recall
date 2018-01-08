@@ -71,14 +71,23 @@ public class PlayingWithAlgo {
 	}
 
 	public static List<String> sortByLastLetter(String array[]) {
-		/*
-		 * ArrayList<String> listeMot = new ArrayList<String>(); for (int i=0; i <
-		 * array.length + 1 ; i++) { if(i==array[i].charAt(array.length)) { char
-		 * der=charAt(array.length); }
-		 * 
-		 * }
-		 */
-		return null;
+
+		ArrayList<String> listeMot = new ArrayList<String>();
+		ArrayList<String> tri = new ArrayList<String>();
+
+		for (int i = 0; i < array.length; i++) {
+			String origine = array[i];
+			String reverse = new StringBuilder(origine).reverse().toString();
+			listeMot.add(reverse);
+
+		}
+		Collections.sort(listeMot);
+		for (int i = 0; i < listeMot.size(); i++) {
+			String origine = listeMot.get(i);
+			String reverse = new StringBuilder(origine).reverse().toString();
+			tri.add(reverse);
+		}
+		return tri;
 	}
 
 	public static String getFirstHalf(String string) {
@@ -91,7 +100,33 @@ public class PlayingWithAlgo {
 	}
 
 	public static String exportWordWithoutALetter(String array[], char letter) {
-		return null;
+		boolean test = true;
+		String retour = "Perdu !";
+		for (int i = 0; i < array.length; i++) {
+			if (array[i] == null && i < array.length - 1)
+				continue;
+				//i++;
+			else if (array[i] != null) {
+				array[i] = array[i].toLowerCase();
+				for (int j = 0; j < array[i].length(); j++) {
+					System.out.println(array[i].charAt(j));
+					if (letter == array[i].charAt(j)) {
+						test = false;
+						i++;
+						j = -1;
+						System.out.println(array[i] + test);
+
+					} else if (test && j == (array[i].length() - 1)) {
+						retour = array[i];
+						System.out.println(retour);
+						System.out.println(test);
+						return retour;
+					}
+				}
+			}
+		}
+		System.out.println(retour);
+		return retour;
 	}
 
 	public static int numberOfPalindromeWord(String text) {
@@ -113,7 +148,6 @@ public class PlayingWithAlgo {
 		for (int i = 0; i < tableau.length; i++) {
 			String texteModif = tableau[i].replaceAll("\\p{Punct}", "").toLowerCase();
 			String origine = texteModif.replace(" ", "");
-			System.out.println(texteModif);
 			String reverse = new StringBuilder(origine).reverse().toString();
 			if (reverse.equals(origine)) {
 				compteur++;
@@ -195,7 +229,17 @@ public class PlayingWithAlgo {
 	}
 
 	public static int[] letterPosition(String name) {
-		return null;
+		String minuscules = name.toLowerCase();
+		char[] alphabet = new char[] { 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p',
+				'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z' };
+		int[] resultat = new int[name.length()];
+		for (int i = 0; i < minuscules.length(); i++) {
+			for (int j = 0; j < alphabet.length; j++)
+				if (alphabet[j] == minuscules.charAt(i)) {
+					resultat[i] = j + 1;
+				}
+		}
+		return resultat;
 	}
 
 	public static long addingTwoNumbers(long number1, long number2) {
@@ -225,7 +269,12 @@ public class PlayingWithAlgo {
 	}
 
 	public static int[] addElementToBeginning(int array[], int element) {
-		return null;
+		int debut[] = new int[array.length + 1];
+		debut[0] = element;
+		for (int i = 1; i < array.length + 1; i++) {
+			debut[i] = array[i - 1];
+		}
+		return debut;
 	}
 
 	public static Float makeNegative(Float number) {
@@ -237,23 +286,89 @@ public class PlayingWithAlgo {
 	}
 
 	public static String[] getElementsLowerThanSix(String[] array) {
-		return null;
+		String six[] = new String[] { "1", "2", "3", "4", "5", "6" };
+		ArrayList<String> resultat = new ArrayList<String>();
+		for (int i = 0; i < array.length; i++) {
+			for (int j = 0; j < six.length; j++)
+				if (array[i] == six[j]) {
+					resultat.add(array[i]);
+				}
+		}
+		Collections.sort(resultat);
+		for (int i = 0; i < resultat.size() - 1; i++) {
+			if (resultat.get(i) == resultat.get(i + 1)) {
+				resultat.remove(resultat.get(i));
+			}
+		}
+		String[] tab = resultat.toArray(new String[resultat.size()]);
+		return tab;
 	}
 
 	public static int[] sortTabBySelection(int[] array) {
-		return null;
+		for (int i = 0; i < array.length - 1; i++) {
+			int index = i;
+			for (int j = i + 1; j < array.length; j++) {
+				if (array[j] < array[index]) {
+					index = j;
+				}
+			}
+			int temp = array[index];
+			array[index] = array[i];
+			array[i] = temp;
+		}
+		return array;
 	}
 
 	public static int[] sortTabByInsertion(int[] array) {
-		return null;
+		int temp = 0;
+		for (int i = 0; i < array.length; i++) {
+			for (int j = i; j > 0; j--) {
+				if (array[j] < array[j - 1]) {
+					temp = array[j];
+					array[j] = array[j - 1];
+					array[j - 1] = temp;
+				}
+			}
+		}
+		return array;
 	}
 
 	public static int[] sortTabByBubble(int[] array) {
-		return null;
+		int temp = 0;
+		for (int i = 0; i < array.length - 1; i++) {
+			for (int j = 0; j < array.length - i - 1; j++) {
+				if (array[j] > array[j + 1]) {
+					temp = array[j];
+					array[j] = array[j + 1];
+					array[j + 1] = temp;
+				}
+			}
+		}
+		return array;
 	}
 
 	public static int findIndexByDichotomy(int elemet, int[] array) {
-		return 0;
+		int indexDebut = -1;
+		int indexFin = array.length;
+		int indexMilieu = 0;
+		boolean resultat = false;
+
+		while (!resultat && ((indexFin - indexDebut) > 1)) {
+
+			indexMilieu = (indexDebut + indexFin) / 2;
+
+			resultat = (array[indexMilieu] == elemet);
+			if (array[indexMilieu] > elemet) {
+				indexFin = indexMilieu;
+			} else {
+				indexDebut = indexMilieu;
+			}
+		}
+		if (array[indexMilieu] == elemet) {
+			return indexMilieu;
+		} else
+			return -1;
+
 	}
 
 	public static int roundUp(float number) {
@@ -262,7 +377,21 @@ public class PlayingWithAlgo {
 	}
 
 	public static int findLastDayOfMonth(int month, int year) {
-		return 0;
+		int dernier;
+
+		if ((month % 2 != 0 && month < 8) || (month % 2 == 0 && month > 7) || month == 7 || month == 8) {
+			dernier = 31;
+
+		} else if (month == 2 && ((year % 4 == 0 && year % 100 != 0) || year % 400 == 0)) {
+			dernier = 29;
+		} else if (month == 2 && year % 100 == 0 && year % 400 != 0) {
+			dernier = 28;
+		} else if (month == 2 && year % 4 != 0) {
+			dernier = 28;
+		} else {
+			dernier = 30;
+		}
+		return dernier;
 	}
 
 	public static int factorial(int number) {
@@ -306,29 +435,43 @@ public class PlayingWithAlgo {
 	}
 
 	public static boolean checkIfAllElementsPair(int[] array) {
+		boolean pair = true;
 		for (int i = 0; i < array.length; i++) {
-			// int tab = array[i];
 			int calcul = array[i] % 2;
-			if (calcul == 0) {
-				continue;
+			if (calcul != 0) {
+				pair = false;
 			}
-			if (i == array.length) {
-				return true;
-			} 
-			else {
-				return false;
-			}
-			
 		}
-
+		return pair;
 	}
 
 	public static ArrayList<Integer> exportAllElementsPair(int[] array) {
-		return null;
+		ArrayList<Integer> elemPair = new ArrayList<Integer>();
+		for (int i = 0; i < array.length; i++) {
+			int calcul = array[i] % 2;
+			if (calcul == 0) {
+				elemPair.add(array[i]);
+			}
+		}
+		return elemPair;
 	}
 
 	public static ArrayList<Integer> exportAllUniqueElementsPair(int[] array) {
-		return null;
+		ArrayList<Integer> elemPair = new ArrayList<Integer>();
+		for (int i = 0; i < array.length; i++) {
+			int calcul = array[i] % 2;
+			if (calcul == 0) {
+				elemPair.add(array[i]);
+			}
+		}
+		for (int i = 0; i < elemPair.size(); i++) {
+			for (int j = 0; j < i; j++) {
+				if (elemPair.get(i) == elemPair.get(j)) {
+					elemPair.remove(elemPair.get(i));
+				}
+			}
+		}
+		return elemPair;
 	}
 
 	public static boolean checkIfTriangleRectangle(int number1, int number2, int number3) {
@@ -398,41 +541,87 @@ public class PlayingWithAlgo {
 	}
 
 	public static ArrayList<Integer> allElementsExceptFirstAndLast(int array[]) {
-
-		return null;
+		ArrayList<Integer> tableau = new ArrayList<Integer>();
+		for (int i = 1; i < array.length - 1; i++) {
+			tableau.add(array[i]);
+		}
+		return tableau;
 	}
 
 	public static int[] allElementsExceptFirstAndLastInt(int array[]) {
-		return null;
+		ArrayList<Integer> tableau = new ArrayList<Integer>();
+		for (int i = 1; i < array.length - 1; i++) {
+			tableau.add(array[i]);
+		}
+
+		int tab[] = new int[tableau.size()];
+		for (int i = 0; i < tableau.size(); i++) {
+			tab[i] = tableau.get(i);
+		}
+		return tab;
 	}
 
 	public static ArrayList<Integer> allElementsWithIndexPair(int array[]) {
-		return null;
+		ArrayList<Integer> indexPair = new ArrayList<Integer>();
+		for (int i = 0; i < array.length; i++) {
+			if (i % 2 == 0) {
+				indexPair.add(array[i]);
+			}
+		}
+		return indexPair;
 	}
 
 	public static ArrayList<Integer> reverseOrder(int array[]) {
-		return null;
+		ArrayList<Integer> reverse = new ArrayList<Integer>(array.length);
+		for (int i = 0; i < array.length; i++) {
+			reverse.add(array[array.length - i - 1]);
+		}
+		return reverse;
 	}
 
 	public static int[] reverseOrderInt(int array[]) {
-		return null;
+		int reverse[] = new int[array.length];
+		for (int i = 0; i < array.length; i++) {
+			reverse[i] = array[array.length - i - 1];
+		}
+		return reverse;
 	}
 
 	public static ArrayList<Integer> insertElementInTheMiddleOfAnArray(int array[], int element) {
-		return null;
+		ArrayList<Integer> listeMilieu = new ArrayList<Integer>();
+		int milieu = array.length / 2;
+		for (int i = 0; i < array.length; i++)
+			listeMilieu.add(array[i]);
+		listeMilieu.add(milieu, element);
+		return listeMilieu;
 	}
 
 	public static ArrayList<Integer> exportElementsPair(ArrayList<Integer> list) {
-
-		return null;
+		ArrayList<Integer> pair = new ArrayList<Integer>();
+		for (int i = 0; i < list.size(); i++) {
+			if (list.get(i) % 2 == 0) {
+				pair.add(list.get(i));
+			}
+		}
+		return pair;
 	}
 
 	public static ArrayList<Integer> exportElementsWithIndexPair(ArrayList<Integer> list) {
-		return null;
+		ArrayList<Integer> pair = new ArrayList<Integer>();
+		for (int i = 0; i < list.size(); i++) {
+			if (i % 2 == 0) {
+				pair.add(list.get(i));
+			}
+		}
+		return pair;
 	}
 
 	public static int Addition(HashMap<String, Integer> addition) {
-		return 0;
+		int somme = 0;
+		for (int i : addition.values()) {
+			somme += i;
+		}
+		return somme;
 	}
 
 	public static boolean checkIfStringStartsWithA(String word) {
@@ -445,10 +634,10 @@ public class PlayingWithAlgo {
 	}
 
 	public static boolean checkIfStringStartsWithVowel(String word) {
-
-		if (word.matches("[aeiouyAEIOUY]")) {
-			// if ("aeiouyAEIOUY".indexOf(word) != -1)
-			return true;
+		String voyelle = "aeiouyAEIOUY";
+		for (int i = 0; i < voyelle.length(); i++) {
+			if (word.charAt(0) == voyelle.charAt(i))
+				return true;
 		}
 		return false;
 	}
@@ -471,18 +660,19 @@ public class PlayingWithAlgo {
 	}
 
 	public static String swapFirstandLastLetter(String array) {
-		// String texte = array;
-		// texte.charAt(0) = array.charAt(array.length());
-		// texte.charAt(texte.length()) = array.charAt(0);
-		//
-		// array.replace(String[0] newArray, array[0])
-		// array.charAt(0) => charAt(array.length)
-		return null;
+		return array.charAt(array.length() - 1) + array.substring(1, array.length() - 1) + array.charAt(0);
 	}
 
 	public static int[] swapFirstandLastElement(int[] array) {
-
-		return null;
+		int tab[] = new int[array.length];
+		for (int i = 0; i < array.length; i++) {
+			if (i == 0)
+				tab[0] = array[array.length - 1];
+			else if (i == array.length - 1)
+				tab[tab.length - 1] = array[0];
+			else
+				tab[i] = array[i];
+		}
+		return tab;
 	}
-
 }

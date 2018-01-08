@@ -10,10 +10,10 @@ public class ExempleTest {
 	public void test() {
 		fail("Not yet implemented");
 	}
-	@Test
-	public void helloWorld() {
-		assertEquals("Hello World",Exemple.helloWorld(""));
-		assertEquals("Hello Test",Exemple.helloWorld("Test"));
-		assertEquals("Hello Test2",Exemple.helloWorld("Test2"));
-	}
+//	@Test
+//	public void helloWorld() {
+//		assertEquals("Hello World",Exemple.helloWorld(""));
+//		assertEquals("Hello Test",Exemple.helloWorld("Test"));
+//		assertEquals("Hello Test2",Exemple.helloWorld("Test2"));
+//	}
 }
